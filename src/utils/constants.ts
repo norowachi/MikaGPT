@@ -33,4 +33,4 @@ export const Links = {
   github: "https://github.com/Noro95/MikaGPT",
 };
 
-export const Owner = ["232542027550556160"];
+export const Owner = ["232542027550556160", "317012397049249794"];
