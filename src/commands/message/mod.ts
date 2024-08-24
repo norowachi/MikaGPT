@@ -2,6 +2,7 @@ import {
   ApplicationCommandOptionType,
   ApplicationCommandType,
   InteractionResponseType,
+  MessageFlags,
 } from "discord-api-types/v10";
 import { CommandData, env } from "@utils";
 import OpenAI from "openai";
@@ -19,12 +20,19 @@ export default {
       type: ApplicationCommandOptionType.String,
       required: true,
     },
+    {
+      name: "hide",
+      description: "Hide from others? (default: false)",
+      type: ApplicationCommandOptionType.Boolean,
+      required: false,
+    },
   ],
   contexts: [0, 1, 2],
   integration_types: [0, 1],
   run: async (res, _int, _sub, options) => {
     // the prompt
     const message = options.getString("message", true);
+    const hide = options.getBoolean("hide");
 
     // the personality
     const personality = "";
@@ -51,6 +59,7 @@ export default {
         content:
           completion.choices[0].message.content ||
           completion.choices[0].message.refusal,
+        flags: hide ? MessageFlags.Ephemeral : undefined,
       },
     });
   },
