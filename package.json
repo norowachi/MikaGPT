@@ -1,0 +1,47 @@
+{
+  "name": "mikagpt",
+  "version": "1.0.0",
+  "description": "Discord Bot with OpenAI's API",
+  "main": "dist/index.js",
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "tsc && tsc-alias",
+    "register": "node dist/register",
+    "dev": "tsc && tsc-alias --watch",
+    "start": "node dist/index",
+    "start-nowarn": "node --disable-warning=ExperimentalWarning --disable-warning=DeprecationWarning dist/index",
+    "format": "prettier --ignore-path .gitignore --write \"src/**/*.+(js|ts|json)\""
+  },
+  "dependencies": {
+    "axios": "1.7.5",
+    "discord-api-types": "^0.37.97",
+    "express": "4.19.2",
+    "openai": "^4.56.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.5.0",
+    "dotenv": "16.4.5",
+    "prettier": "^3.3.3",
+    "tsc-alias": "^1.8.10"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Noro95/MikaGPT.git"
+  },
+  "keywords": [
+    "discord",
+    "interactions",
+    "openai",
+    "api"
+  ],
+  "author": "Andrew <contact@norowa.dev>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Noro95/MikaGPT/issues"
+  },
+  "homepage": "https://github.com/Noro95/MikaGPT#readme"
+}
