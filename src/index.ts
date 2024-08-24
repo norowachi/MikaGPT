@@ -18,6 +18,7 @@ import {
   APIInteraction,
   APIChatInputApplicationCommandInteraction,
   ApplicationCommandType,
+  MessageFlags,
 } from "discord-api-types/v10";
 
 const app: Application = express();
@@ -73,6 +74,7 @@ app.post(
           type: InteractionResponseType.ChannelMessageWithSource,
           data: {
             content: `This is a private bot, to host and use your own see ${Links.github}`,
+            flags: MessageFlags.Ephemeral,
           },
         });
 
