@@ -5,18 +5,18 @@ import {
   MessageFlags,
   Routes,
 } from "discord-api-types/v10";
-import { CommandData, env, rest } from "@utils";
+import { CommandData, rest } from "@utils";
 import OpenAI from "openai";
 
 const openai = new OpenAI({});
 
 export default {
-  name: "message",
-  description: "Propmt the GPT",
+  name: "image",
+  description: "Generate an image",
   type: ApplicationCommandType.ChatInput,
   options: [
     {
-      name: "message",
+      name: "prompt",
       description: "Yes?",
       type: ApplicationCommandOptionType.String,
       required: true,
@@ -32,7 +32,7 @@ export default {
   integration_types: [0, 1],
   run: async (res, int, _sub, options) => {
     // the prompt
-    const message = options.getString("message", true);
+    const prompt = options.getString("propmt", true);
     const hide = options.getBoolean("hide");
 
     // ack
@@ -43,23 +43,14 @@ export default {
       },
     });
 
-    // TODO: the personality
-    const personality = "";
-
     // request
-    const completion = await openai.chat.completions
-      .create({
-        messages: [
-          {
-            role: "system",
-            content: env.AI_SYSTEM.replace("{personality}", personality),
-          },
-          {
-            role: "user",
-            content: message,
-          },
-        ],
-        model: "gpt-4o-mini-2024-07-18",
+    const generation = await openai.images
+      .generate({
+        prompt: prompt,
+        model: "dall-e-2",
+        n: 1,
+        quality: "standard",
+        size: "1024x1024",
       })
       .catch((e) => {
         console.error(e);
@@ -68,10 +59,9 @@ export default {
     // reply
     return rest.req("PATCH", Routes.webhookMessage(rest.me.id, int.token), {
       body: {
-        content: completion
-          ? completion.choices[0].message.content ||
-            completion.choices[0].message.refusal
-          : "No response...",
+        content: generation
+          ? `[${generation.data[0].revised_prompt || prompt}]${generation.data[0].url}`
+          : "Failed to generate image",
       },
     });
   },

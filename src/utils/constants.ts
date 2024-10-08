@@ -30,7 +30,7 @@ export const ConsoleColors = {
 };
 
 export const Links = {
-  github: "https://github.com/Noro95/MikaGPT",
+  github: "https://github.com/norowachi/MikaGPT",
 };
 
 export const Owner = [
