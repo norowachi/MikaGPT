@@ -60,7 +60,7 @@ export default {
     return rest.req("PATCH", Routes.webhookMessage(rest.me.id, int.token), {
       body: {
         content: generation
-          ? `[${generation.data[0].revised_prompt || prompt}]${generation.data[0].url}`
+          ? `[${generation.data[0].revised_prompt || prompt}](${generation.data[0].url})`
           : "Failed to generate image",
       },
     });
