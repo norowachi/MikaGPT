@@ -16,6 +16,7 @@
     "format": "prettier --ignore-path .gitignore --write \"src/**/*.+(js|ts|json)\""
   },
   "dependencies": {
+    "@google/generative-ai": "^0.21.0",
     "axios": "1.7.5",
     "discord-api-types": "^0.37.97",
     "express": "4.19.2",

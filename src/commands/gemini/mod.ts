@@ -6,13 +6,13 @@ import {
   Routes,
 } from "discord-api-types/v10";
 import { CommandData, env, rest } from "@utils";
-import OpenAI from "openai";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
-const openai = new OpenAI({});
+const genAI = new GoogleGenerativeAI(env.GEMINI_API_KEY);
 
 export default {
-  name: "message",
-  description: "Propmt the GPT",
+  name: "gemini",
+  description: "Chat with the Google Gemini AI!",
   type: ApplicationCommandType.ChatInput,
   options: [
     {
@@ -43,35 +43,21 @@ export default {
       },
     });
 
-    // TODO: the personality
-    const personality = "";
+    // model & sys prompt
+    const model = genAI.getGenerativeModel({
+      model: "gemini-1.5-flash",
+      systemInstruction: env.AI_SYSTEM,
+    });
 
-    // request
-    const completion = await openai.chat.completions
-      .create({
-        messages: [
-          {
-            role: "system",
-            content: env.AI_SYSTEM.replace("{personality}", personality),
-          },
-          {
-            role: "user",
-            content: prompt,
-          },
-        ],
-        model: "gpt-4o-mini-2024-07-18",
-      })
-      .catch((e) => {
-        console.error(e);
-      });
+    // result
+    const result = await model.generateContent(prompt).catch((e) => {
+      console.error(e);
+    });
 
     // reply
     return rest.req("PATCH", Routes.webhookMessage(rest.me.id, int.token), {
       body: {
-        content: completion
-          ? completion.choices[0].message.content ||
-            completion.choices[0].message.refusal
-          : "No response...",
+        content: result ? result.response.text() : "An error occurred!",
       },
     });
   },

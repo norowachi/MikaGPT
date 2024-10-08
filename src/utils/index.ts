@@ -26,6 +26,7 @@ export const env = {
   DISCORD_API_URL: process.env.DISCORD_API_URL || "https://discord.com/api/v10",
   DISCORD_APP_TOKEN: process.env.DISCORD_APP_TOKEN!,
   DISCORD_APP_PUBLIC_KEY: process.env.DISCORD_APP_PUBLIC_KEY!,
+  GEMINI_API_KEY: process.env.GEMINI_API_KEY!,
   AI_SYSTEM: process.env.AI_SYSTEM || "You are a helpful assistant.",
 };
 
@@ -310,7 +311,7 @@ export function valueToUint8Array(
     return new Uint8Array(value);
   }
   if (value instanceof Uint8Array) {
-    return value;
+    return new Uint8Array(value);
   }
   throw new Error(
     "Unrecognized value type, must be one of: string, Buffer, ArrayBuffer, Uint8Array",
@@ -446,7 +447,7 @@ export function verifyKeyMiddleware(
         await onBodyComplete(Buffer.from(JSON.stringify(req.body), "utf-8"));
       }
     } else {
-      const chunks: Array<Buffer> = [];
+      const chunks: Array<Uint8Array> = [];
       req.on("data", (chunk) => {
         chunks.push(chunk);
       });
