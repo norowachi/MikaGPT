@@ -32,7 +32,7 @@ export default {
   integration_types: [0, 1],
   run: async (res, int, _sub, options) => {
     // the prompt
-    const prompt = options.getString("propmt", true);
+    const prompt = options.getString("prompt", true);
     const hide = options.getBoolean("hide");
 
     // ack
