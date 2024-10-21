@@ -5,7 +5,7 @@ import {
   MessageFlags,
   Routes,
 } from "discord-api-types/v10";
-import { CommandData, rest } from "@utils";
+import { CommandData, ImagineAccess, rest } from "@utils";
 import OpenAI from "openai";
 
 const openai = new OpenAI({});
@@ -31,6 +31,17 @@ export default {
   contexts: [0, 1, 2],
   integration_types: [0, 1],
   run: async (res, int, _sub, options) => {
+    // check if user has Imagine Access
+    if (!ImagineAccess.includes((int.user || int.member!.user).id)) {
+      return res.json({
+        type: InteractionResponseType.ChannelMessageWithSource,
+        data: {
+          content: "You don't have access to this command",
+          flags: MessageFlags.Ephemeral,
+        },
+      });
+    }
+
     // the prompt
     const prompt = options.getString("prompt", true);
     const hide = options.getBoolean("hide");

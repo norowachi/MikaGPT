@@ -1,6 +1,6 @@
 ## MikaGPT
 
-A Discord Bot using OpenAI's API
+A Discord Bot using OpenAI and Gemini APIs
 
 ### Getting Started
 
@@ -14,7 +14,7 @@ A Discord Bot using OpenAI's API
 1. Clone the repository:
 
    ```sh
-   git clone https://github.com/Noro95/MikaGPT.git
+   git clone https://github.com/norowachi/MikaGPT.git
    cd MikaGPT
    ```
 
@@ -26,7 +26,8 @@ A Discord Bot using OpenAI's API
 
 3. Create a `.env` file and fill in the required values according to `example.env`
 
-4. Modify `Owners` array and put your own user ID in `src/utils/constants.ts`
+4. Give access to bot using `/access trust` and remove using `/access untrust`
+   note: you have to trust yourself first to use `/imagine` command
 
 #### Building the Project
 
@@ -55,3 +56,4 @@ npm start
 ```
 
 This will start the server on the port specified in the `.env` file.
+depending on your way of hosting and making the server externally accessible, using means like `Cloudflare Tunnels` or any other reverse proxy, you just have to put the public URL in the `Interactions Endpoint` section in your bot application: `<your url>/interactions`

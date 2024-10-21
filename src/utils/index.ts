@@ -28,6 +28,7 @@ export const env = {
   DISCORD_APP_PUBLIC_KEY: process.env.DISCORD_APP_PUBLIC_KEY!,
   GEMINI_API_KEY: process.env.GEMINI_API_KEY!,
   AI_SYSTEM: process.env.AI_SYSTEM || "You are a helpful assistant.",
+  OWNERS: process.env.OWNERS!.split(",").map((id) => id.trim()) || [],
 };
 
 // find missing values

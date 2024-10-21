@@ -12,7 +12,7 @@ const openai = new OpenAI({});
 
 export default {
   name: "message",
-  description: "Propmt the GPT",
+  description: "Prompt the GPT",
   type: ApplicationCommandType.ChatInput,
   options: [
     {

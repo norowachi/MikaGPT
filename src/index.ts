@@ -9,7 +9,7 @@ import {
   getSub,
   cacheCommands,
   IntEmitter,
-  Owner,
+  Access,
   Links,
 } from "@utils";
 import {
@@ -68,8 +68,9 @@ app.post(
     ) {
       interaction = interaction as APIChatInputApplicationCommandInteraction;
 
-      // if not one of owners ignore
-      if (!Owner.includes((interaction.member || interaction).user!.id))
+      const userId = (interaction.member || interaction).user!.id;
+      // check access file & owners list
+      if (!Access.includes(userId) && !env.OWNERS.includes(userId))
         return res.json({
           type: InteractionResponseType.ChannelMessageWithSource,
           data: {
@@ -96,4 +97,9 @@ app.post(
 
 app.listen(env.PORT, () => {
   console.log(`Started and running on port ${env.PORT}`);
+});
+
+// handle unhandled rejections
+process.on("unhandledRejection", (e) => {
+  console.error("unhandledRejection", e);
 });

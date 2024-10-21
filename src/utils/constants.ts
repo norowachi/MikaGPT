@@ -1,3 +1,6 @@
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
+
 /**
  * console coloring!
  */
@@ -33,9 +36,14 @@ export const Links = {
   github: "https://github.com/norowachi/MikaGPT",
 };
 
-export const Owner = [
-  "232542027550556160", //mika
-  "317012397049249794", //lily
-  "534783899331461123", //noro
-  "381312731925708805", //june
-];
+export const PublicPath = join(import.meta.dirname, "..", "..", "public");
+
+export let ImagineAccess = readFileSync(
+  join(PublicPath, "imagine"),
+  "utf-8",
+).split("\n");
+
+export let Access: string[] = readFileSync(
+  join(PublicPath, "access"),
+  "utf-8",
+).split("\n");
