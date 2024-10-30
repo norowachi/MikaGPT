@@ -44,7 +44,7 @@ export default class DiscordRestClient {
     if (timeout) await sleep(timeout * 1.01);
     const url = `${this.baseUrl}${endpoint}`;
 
-    headers["User-Agent"] = "norowa.dev";
+    headers["User-Agent"] = "noro.cc";
     headers["Authorization"] = `Bot ${this.token}`;
     if (!headers["Content-Type"]) headers["Content-Type"] = "application/json";
 
