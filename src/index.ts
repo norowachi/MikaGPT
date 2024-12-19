@@ -27,7 +27,7 @@ await cacheCommands();
 
 // the interactions endpoint
 app.post(
-  "/interactions",
+  "*/interactions",
   verifyKeyMiddleware(env.DISCORD_APP_PUBLIC_KEY!),
   async (req, res) => {
     let interaction: APIInteraction = req.body;
