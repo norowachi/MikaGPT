@@ -11,6 +11,7 @@ import {
   IntEmitter,
   Access,
   Links,
+  rest,
 } from "@utils";
 import {
   InteractionResponseType,
@@ -19,16 +20,26 @@ import {
   APIChatInputApplicationCommandInteraction,
   ApplicationCommandType,
   MessageFlags,
+  RESTGetCurrentApplicationResult,
+  Routes,
 } from "discord-api-types/v10";
 
 const app: Application = express();
 
 await cacheCommands();
 
+
+const PubKey = (
+	(await rest.req(
+		"GET",
+		Routes.currentApplication()
+	)) as RESTGetCurrentApplicationResult
+).verify_key;
+
 // the interactions endpoint
 app.post(
   "*/interactions",
-  verifyKeyMiddleware(env.DISCORD_APP_PUBLIC_KEY!),
+  verifyKeyMiddleware(PubKey),
   async (req, res) => {
     let interaction: APIInteraction = req.body;
 

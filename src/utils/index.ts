@@ -25,7 +25,6 @@ export const env = {
   PORT: process.env.PORT || 5000,
   DISCORD_API_URL: process.env.DISCORD_API_URL || "https://discord.com/api/v10",
   DISCORD_APP_TOKEN: process.env.DISCORD_APP_TOKEN!,
-  DISCORD_APP_PUBLIC_KEY: process.env.DISCORD_APP_PUBLIC_KEY!,
   GEMINI_API_KEY: process.env.GEMINI_API_KEY!,
   AI_SYSTEM: process.env.AI_SYSTEM || "You are a helpful assistant.",
   OWNERS: process.env.OWNERS!.split(",").map((id) => id.trim()) || [],
